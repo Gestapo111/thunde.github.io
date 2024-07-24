@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPTV Premium</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('/mnt/data/Picsart_24-07-21_07-11-55-775.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+        .content {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        h1 {
+            margin-top: 50px;
+            font-size: 3em;
+        }
+        h2 {
+            margin: 20px 0;
+        }
+        .prices {
+            margin: 20px 0;
+            z-index: 1;
+        }
+        .prices table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        .prices table, .prices th, .prices td {
+            border: 1px solid white;
+        }
+        .prices th, .prices td {
+            padding: 10px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 20px 10px;
+            background-color: #008CBA;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .contact-icons {
+            margin: 20px 0;
+            z-index: 1;
+        }
+        .contact-icons img {
+            width: 50px;
+            margin: 0 10px;
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="content">
+        <h1>IPTV Premium</h1>
+        <h2>Disfruta de la mejor televisión online</h2>
+        <p>Accede a una amplia variedad de canales de TV, películas, series y deportes en vivo con nuestra suscripción IPTV premium.</p>
+        
+        <div class="prices">
+            <h2>Precios</h2>
+            <table>
+                <tr>
+                    <th>Duración</th>
+                    <th>Precio</th>
+                </tr>
+                <tr>
+                    <td>1 mes</td>
+                    <td>$10</td>
+                </tr>
+                <tr>
+                    <td>3 meses</td>
+                    <td>$25</td>
+                </tr>
+                <tr>
+                    <td>6 meses</td>
+                    <td>$45</td>
+                </tr>
+                <tr>
+                    <td>1 año</td>
+                    <td>$80</td>
+                </tr>
+            </table>
+            <a class="button" href="https://www.paypal.com/paypalme/@albsanchz">Pagar con PayPal</a>
+        </div>
+
+        <div class="contact">
+            <h2>Contacto</h2>
+            <div class="contact-icons">
+                <a href="https://wa.me/+16616754876">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+                </a>
+                <a href="https://t.me/@Thunder8k">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+                </a>
+            </div>
+        </div>
+
+        <a class="button" href="https://www.paypal.com/paypalme/@albsanchz">Comprar Ahora</a>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const rayos = [];
+
+            class Rayo {
+                constructor(x, y) {
+                    this.x = x;
+                    this.y = y;
+                    this.length = Math.random() * 100 + 50;
+                    this.speed = Math.random() * 5 + 2;
+                    this.width = Math.random() * 2 + 1;
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.moveTo(this.x, this.y);
+                    ctx.lineTo(this.x + Math.sin(this.speed) * this.length, this.y + Math.cos(this.speed) * this.length);
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+                    ctx.lineWidth = this.width;
+                    ctx.stroke();
+                }
+
+                update() {
+                    this.x += Math.sin(this.speed);
+                    this.y += Math.cos(this.speed);
+                    this.length -= 1;
+                    this.speed += 0.1;
+                    if (this.length <= 0) {
+                        this.reset();
+                    }
+                }
+
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = 0;
+                    this.length = Math.random() * 100 + 50;
+                    this.speed = Math.random() * 5 + 2;
+                    this.width = Math.random() * 2 + 1;
+                }
+            }
+
+            function initRays() {
+                for (let i = 0; i < 20; i++) {
+                    const x = Math.random() * canvas.width;
+                    const y = Math.random() * canvas.height;
+                    rayos.push(new Rayo(x, y));
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                rayos.forEach(rayo => {
+                    rayo.update();
+                    rayo.draw();
+                });
+                requestAnimationFrame(animate);
+            }
+
+            initRays();
+            animate();
+        });
+    </script>
+</body>
+</html>
