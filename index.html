@@ -26,12 +26,15 @@
         @keyframes pulse {
             0% {
                 transform: scale(1);
+                text-shadow: 0 0 10px #ffcc00;
             }
             50% {
                 transform: scale(1.1);
+                text-shadow: 0 0 20px #ffcc00;
             }
             100% {
                 transform: scale(1);
+                text-shadow: 0 0 10px #ffcc00;
             }
         }
 
@@ -95,12 +98,7 @@
             font-size: 1.2em;
             font-weight: bold;
             color: #ffcc00;
-            background: #333;
-            padding: 10px;
-            border-radius: 10px;
-            display: inline-block;
             animation: pulse 2s infinite;
-            text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00, 0 0 30px #ffcc00;
         }
         canvas {
             position: fixed;
@@ -127,12 +125,23 @@
             font-size: 1em;
             color: #ffcc00;
         }
+        .image-gallery {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .image-gallery img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
     <canvas id="canvas"></canvas>
     <div class="content">
-        <h1>THUNDER TV</h1>
+        <h1>THUNDER IPTV</h1>
         <h2>Disfruta de la mejor televisión online</h2>
         <p>Accede a una amplia variedad de canales de TV, películas, series y deportes en vivo con nuestra suscripción IPTV premium.</p>
         
@@ -183,6 +192,11 @@
         </div>
         
         <a class="button" href="https://zonaduples.com/Thunder/THUNDER_3.8.apk">Descargar Thunder Android</a>
+
+        <div class="image-gallery">
+            <img src="https://live.staticflickr.com/65535/53877615792_9d9483de5f_m.jpg" alt="Imagen 1">
+            <img src="https://live.staticflickr.com/65535/53878859174_d49033d2cc_m.jpg" alt="Imagen 2">
+        </div>
 
         <div class="visit-counter">
             Visitas: <span id="visit-count">0</span>
@@ -250,12 +264,7 @@
             initRays();
             animate();
 
-            window.addEventListener('resize', () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            });
-
-            // Visit Counter
+            // Contador de visitas
             const visitCountElement = document.getElementById('visit-count');
             let visitCount = localStorage.getItem('visitCount') || 0;
             visitCount++;
